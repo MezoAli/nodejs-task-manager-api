@@ -1,8 +1,21 @@
-const getAllTasks = () => {};
-const getSingleTask = () => {};
-const updateTask = () => {};
-const deleteTask = () => {};
-const addTask = () => {};
+const getAllTasks = (req, res) => {
+  res.status(200).json({ success: true, tasks: [{ name: "get all tasks" }] });
+};
+const getSingleTask = (req, res) => {
+  const id = req.params.id;
+  res.status(200).json({ success: true, task: { id } });
+};
+const updateTask = (req, res) => {
+  const name = req.body.name;
+  res.status(200).json({ success: true, task: { name } });
+};
+const deleteTask = (req, res) => {
+  res.status(200).json({ success: true, task: { name: "delete task" } });
+};
+const addTask = (req, res) => {
+  const name = req.body.name;
+  res.status(200).json({ success: true, task: { name } });
+};
 
 module.exports = {
   getAllTasks,
