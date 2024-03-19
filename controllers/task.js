@@ -17,9 +17,14 @@ const getSingleTask = async (req, res) => {
     res.status(500).json({ msg: error });
   }
 };
-const updateTask = (req, res) => {
-  const name = req.body.name;
-  res.status(200).json({ success: true, task: { name } });
+const updateTask = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const updatedTask = await Task.findByIdAndUpdate(id, req.body);
+    res.status(201).json({ success: true, task: updatedTask });
+  } catch (error) {
+    res.status(500).json({ msg: error });
+  }
 };
 const deleteTask = (req, res) => {
   res.status(200).json({ success: true, task: { name: "delete task" } });
