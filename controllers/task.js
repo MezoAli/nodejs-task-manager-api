@@ -1,7 +1,12 @@
 const Task = require("../models/task");
 
-const getAllTasks = (req, res) => {
-  res.status(200).json({ success: true, tasks: [{ name: "get all tasks" }] });
+const getAllTasks = async (req, res) => {
+  try {
+    const tasks = await Task.find();
+    res.status(200).json({ success: true, tasks });
+  } catch (error) {
+    res.status(500).json({ msg: error });
+  }
 };
 const getSingleTask = (req, res) => {
   const id = req.params.id;
@@ -15,8 +20,12 @@ const deleteTask = (req, res) => {
   res.status(200).json({ success: true, task: { name: "delete task" } });
 };
 const addTask = async (req, res) => {
-  const task = await Task.create(req.body);
-  res.status(200).json({ success: true, task });
+  try {
+    const task = await Task.create(req.body);
+    res.status(200).json({ success: true, task });
+  } catch (error) {
+    res.status(500).json({ msg: error });
+  }
 };
 
 module.exports = {
