@@ -2,6 +2,7 @@ const express = require("express");
 const tasksRouter = require("./router/task");
 const connectDB = require("./db/connectDB");
 const notFound = require("./middleware/not-fond");
+const customErrorHandler = require("./middleware/customErrorHandler");
 require("dotenv").config();
 
 const app = express();
@@ -9,6 +10,7 @@ app.use(express.json());
 app.use(express.static("./public"));
 app.use("/api/v1/tasks", tasksRouter);
 app.use(notFound);
+app.use(customErrorHandler);
 // app.get("*", (req, res) => {
 //   res.status(404).send("resource not found");
 // });
