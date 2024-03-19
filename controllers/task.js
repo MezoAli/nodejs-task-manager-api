@@ -26,8 +26,14 @@ const updateTask = async (req, res) => {
     res.status(500).json({ msg: error });
   }
 };
-const deleteTask = (req, res) => {
-  res.status(200).json({ success: true, task: { name: "delete task" } });
+const deleteTask = async (req, res) => {
+  try {
+    const id = req.params.id;
+    await Task.findByIdAndDelete(id);
+    res.status(200).json({ success: true, msg: "Deleted Successfully" });
+  } catch (error) {
+    res.status(500).json({ msg: error });
+  }
 };
 const addTask = async (req, res) => {
   try {
