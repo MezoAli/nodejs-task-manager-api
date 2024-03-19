@@ -8,9 +8,14 @@ const getAllTasks = async (req, res) => {
     res.status(500).json({ msg: error });
   }
 };
-const getSingleTask = (req, res) => {
-  const id = req.params.id;
-  res.status(200).json({ success: true, task: { id } });
+const getSingleTask = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const task = await Task.findById(id);
+    res.status(200).json({ success: true, task });
+  } catch (error) {
+    res.status(500).json({ msg: error });
+  }
 };
 const updateTask = (req, res) => {
   const name = req.body.name;
