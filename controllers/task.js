@@ -23,7 +23,9 @@ const getSingleTask = async (req, res) => {
 const updateTask = async (req, res) => {
   try {
     const id = req.params.id;
-    const updatedTask = await Task.findByIdAndUpdate(id, req.body);
+    const updatedTask = await Task.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
     if (!updatedTask) {
       return res.status(404).json({ msg: `no Task with id : ${id}` });
     }
